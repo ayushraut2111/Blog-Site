@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login into db</title>
+    <style>
+        body{
+            background-color: darkgray;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+         width: 100vw;
+         gap: 6px;
+         align-items: center;
+        
+          
+        }
+
+        input{
+            border-style: none;
+            border-left: 2px solid rgb(118, 223, 19);
+            box-shadow: 2px 2px 4px grey;
+            width: 10cm;
+            height: 40px;
+            background-color: rgb(222, 245, 231);
+            border-radius: 20px;
+            padding-left: 10px;
+            
+        }
+        button{
+            border-style: none;
+            width: 100px;
+            height: 40px;
+            cursor: pointer;
+            color: white;
+            border-radius: 20px;
+            background-color: rgb(118, 223, 19);
+            box-shadow: 0 0 10px rgb(34, 34, 34);
+        }
+        form button:hover{
+            font-size: 16px;
+            box-shadow: 0 0 5px rgb(74, 73, 73);
+        }
+        .msg{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        a{
+            text-decoration: none;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">
+        Enter fields and login
+    </h1>
+    <div class="main">
+        <form action="/login" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="username">
+            <br>
+            <input type="password" name="password" placeholder="password">
+            <br>
+            <button type="submit">Login</button>
+            <br>
+            <button><a href="/signup">Signup</a></button>
+            
+        </form>
+        <br><br>
+        <div class="msg">
+            {% for msg in messages %}
+            <h3>{{msg}}</h3>
+            {% endfor %}
+        </div>
+       
+    </div>
+</body>
+</html>

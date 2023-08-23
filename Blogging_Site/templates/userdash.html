@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard
+    </title>
+    <style>
+        #mid1{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between ;
+        }
+        body{
+            font-family:cursive;
+            background-color: cadetblue;
+        }
+        #greet,#mid1{
+            text-align: center;
+            background-color: aliceblue;
+            border-radius: 10px;
+        }
+        .bdy{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: rgb(205, 175, 211);
+            padding: 0.6cm;
+            border-radius: 10px;
+        }
+        .frm{
+            margin-left: 20px;
+            background-color: aquamarine;
+            height: 14cm;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .main{
+            background-color: pink;
+            height: 15cm ;
+            overflow: scroll;
+            margin-right: 20px;
+            border-radius: 15px;
+        }
+        #tpc
+        {
+            margin: 5px;
+        }
+        #txt,.tpcclass{
+            height: 10cm;
+            width: 10cm;
+        }
+        #tpc,#txt,.tpcclass{
+            border-style: none;
+            box-shadow: 2px 2px 4px grey;
+            background-color: rgb(222, 245, 231);
+            border-radius: 20px;
+            padding-left: 10px;
+        }
+        #tpc{
+            height: 0.7cm;
+        }
+        #name1{
+            /* background-color: red; */
+            margin-top: 28px;
+        }
+        .main1{
+            border-radius: 10px;
+            background-color:rgb(205, 161, 240);
+            padding: 5px;
+            margin: 1cm;
+        }
+        .tpcclass{
+            margin-top:0.5cm;
+            width: 15cm;
+            height: 8cm;
+        }
+        .hdr{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .hdr button{
+            height:  min-content;
+        }
+        button{
+            border-style: none;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: wheat;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="hdr">
+        <h1 id="greet">hello</h1>
+        <button><a href="/logout">Logout</a></button>
+    </div>
+
+    <div class="bdy">
+        <div class="frm">
+    <h2 id="greet">Post a new Blog</h2>
+
+            <form action="http://127.0.0.1:8000/blog/" method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Topic" id="tpc">
+                <br>
+                <textarea type="text" name="blogtext" placeholder="Write your blog here" id="txt"></textarea>
+                <br>
+                <button type="submit">Post</button>
+            </form>
+            <br>
+            <!-- <button><a href="/logout">Logout</a></button> -->
+        </div>
+        <div class="main" id="mla">
+            <!-- <div class="main1">
+
+                <div class="mainc" id="mid1">
+                    <h1 id="name">Topic</h1>
+                    <h3 id="name1"></h3>
+                </div>
+                <div class="mainc" id="mid3">
+                    <form action="http://127.0.0.1:8000/update/">
+                        <textarea type="text" name="blogtext" class="tpcclass">Please Write a Blog</textarea>
+                        <br>
+                    </form>
+                    
+                </div>
+                <br>
+                <div class="mainc" id="mid4">
+                </div> 
+            </div> -->
+    </div>
+    </div>
+    <script>
+        fetch(`http://127.0.0.1:8000/blog/`).then(val=>val.json()).then(data=>
+        {console.log(data)
+            data.map((dt)=>{
+                console.log(dt)
+                document.getElementById("greet").innerText="Hello "+dt.user
+                document.getElementById("mla").innerHTML+=`
+            <div class="main1">
+                <div class="mainc" id="mid1">
+            <h1 id="name">${dt.name}</h1>
+            <h3 id="name1">${dt.datetime}</h3>
+
+        </div>
+        <div class="mainc" id="mid3">
+            <form action="http://127.0.0.1:8000/update/${dt.id}/" method="post">
+                {% csrf_token %}
+                <textarea type="text" name="blogtext" class="tpcclass">${dt.blogtext}</textarea >
+                <br>
+                <button type="submit">Edit</button>
+                </form>
+                </div>
+                <br>
+                <div class="mainc" id="mid4">
+                    <button><a href="http://127.0.0.1:8000/delete/${dt.id}">Delete</a></button>
+                    </div>
+                    </div>
+        </div>
+        <br/>`
+            })
+         
+        })
+    </script>
+
+</body>
+</html>

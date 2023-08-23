@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs
+    </title>
+    <style>
+        .main{
+            /* border: 2px solid red; */
+            margin: 3cm;
+        }
+        .main1{
+            border-radius: 10px;
+            background-color:rgb(205, 161, 240);
+            padding: 5px;
+            margin: 1cm;
+        }
+        #mid1{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between ;
+            background-color: rgb(206, 228, 247);
+            border-radius: 10px;
+
+        }
+        body{
+            font-family:cursive;
+            background-color: cadetblue;
+        }
+        .heading{
+            background-color: burlywood;
+            position: sticky;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="heading" style="text-align: center;">Read all the blogs from here</h1>
+    <div class="main" id="mla">
+        <!-- <div class="main1">
+            <div class="mainc" id="mid1">
+                <h1 id="name"></h1>
+                <h3 id="name"></h3>
+            </div>
+            <div class="mainc" id="mid3">
+                <p></p>
+            </div>
+        </div> -->
+
+    </div>
+    <script>
+        fetch(`http://127.0.0.1:8000/anonblog/`).then(val=>val.json()).then(data=>
+        {console.log(data)
+            data.map((dt)=>{
+                console.log(dt)
+                document.getElementById("mla").innerHTML+=`
+                <div class="main1">
+                <div class="mainc" id="mid1">
+                <h1 id="name">${dt.name}</h1>
+                <h3 id="name">${dt.datetime}</h3>
+
+        </div>
+        <div class="mainc" id="mid3">
+            <p class="para">${dt.blogtext}</p>
+            </div>
+            
+            </div>
+    </div>
+        <br/>`
+            })
+         
+        })
+    </script>
+
+</body>
+</html>
+
+
